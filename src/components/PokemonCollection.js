@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React  from "react";
 import PokemonCard from "./PokemonCard";
 import { Card } from "semantic-ui-react";
 
 function PokemonCollection({ pokemon }) {
-  const [sprites, showBackSprites] = useState([]);
-
   const getPokedex = pokemon.map((pokemon) => {
     return <PokemonCard pokemon={pokemon} />
   })

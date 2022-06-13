@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 function Search({ pokemon }) {
   const [search, setSearch] = useState('');
+  const pokemonToDisplay = pokemon.filter((pokemon) => {
+    return pokemon
+  })
 
   return (
     <div className="ui search">

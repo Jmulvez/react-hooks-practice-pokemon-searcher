@@ -5,13 +5,17 @@ import Search from "./Search";
 import { Container } from "semantic-ui-react";
 
 function PokemonPage() {
-  const [pokemon, showPokemonCards] = useState([]);
+  const [pokemon, setPokemonCards] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3001/pokemon")
     .then(res => res.json())
-    .then(data => showPokemonCards(data))
+    .then(data => setPokemonCards(data))
   }, [])
+
+  function handleNewPokemon(newPokemon) {
+    setPokemonCards(newPokemon)
+  }
 
   return (
     <Container>
@@ -21,7 +25,7 @@ function PokemonPage() {
       <br />
       <Search pokemon={pokemon} />
       <br />
-      <PokemonCollection pokemon={pokemon} />
+      <PokemonCollection pokemon={pokemon} images={pokemon.sprites} />
     </Container>
   );
 }
