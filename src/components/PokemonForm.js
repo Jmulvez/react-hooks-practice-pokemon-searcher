@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Form } from "semantic-ui-react";
 
 function PokemonForm() {
-  const [name, setName] = useState([]);
-  const [hp, setHP] = useState([]);
-  const [frontSprite, setFrontSprite] = useState([]);
-  const [backSprite, setBackSprite] = useState([]);
-  const [submittedData, setSubmittedData] = useState([]);
+  const [name, setName] = useState("");
+  const [hp, setHP] = useState("");
+  const [frontSprite, setFrontSprite] = useState("");
+  const [backSprite, setBackSprite] = useState("");
+  const [submittedData, setSubmittedData] = useState("");
 
   function handleNewName(event) {
     setName(event.target.value);
@@ -25,20 +25,18 @@ function PokemonForm() {
   }
 
   function handleSubmit(e) {
+
     e.preventDefault();
     const pokemonData = {
         name: name,
-        hp: hp,
-        frontSprite: frontSprite,
-        backSprite: backSprite,
+        hp: parseInt(hp),
+        sprites: {
+          front: frontSprite,
+          back: backSprite,
+        }
     }
-        const dataArray = [...submittedData, pokemonData];
-        setSubmittedData(dataArray);
-        setName("");
-        setHP("");
-        setFrontSprite("");
-        setBackSprite("");
-    fetch("http://localhost:3000/pokemon", {
+
+    fetch("http://localhost:3001/pokemon", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,8 +44,9 @@ function PokemonForm() {
       body: JSON.stringify(pokemonData),
     })
     .then(res => res.json())
-    .then((newPokemon) => pokemonData(newPokemon))
+    .then((newPokemon) => setSubmittedData(newPokemon))
   }
+
   return (
     <div>
       <h3>Add a Pokemon!</h3>
